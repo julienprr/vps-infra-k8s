@@ -19,13 +19,14 @@ spec:
   helm:
     valuesObject:
       controller:
+        ingressClassResource:
+          name: nginx
+        ingressClass: nginx
         service:
           type: NodePort
           nodePorts:
             http: 30080
             https: 30443
-        ingressClassResource:
-          name: nginx
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
