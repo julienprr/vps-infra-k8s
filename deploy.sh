@@ -1,12 +1,19 @@
-cd /opt/vps-infra-k8s || exit 1
 
-echo "🔄 Mise à jour du dépôt..."
-git pull origin main || exit 1
+cd /opt/vps-infra-k8s || {
+  echo "❌ Dossier non trouvé."
+  exit 1
+}
 
-echo "🚀 Déploiement de l'ingress nginx..."
-kubectl apply -f ingress-nginx/ || exit 1
+echo "🔄 Mise à jour du dépôt Git..."
+git pull origin main || {
+  echo "❌ Échec du git pull"
+  exit 1
+}
 
-echo "🚀 Déploiement de l'application portfolio..."
-kubectl apply -f apps/portfolio/ || exit 1
+echo "🚀 Déploiement Kustomize depuis clusters/default/..."
+kubectl apply -k clusters/default/ || {
+  echo "❌ Échec du déploiement"
+  exit 1
+}
 
-echo "✅ Déploiement terminé."
+echo "✅ Déploiement terminé avec succès."
