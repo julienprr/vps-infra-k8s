@@ -7,7 +7,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - http:
+    - host: portfolio.31.97.52.53
+      http:
         paths:
           - path: /
             pathType: Prefix
